@@ -7,11 +7,12 @@ add_compile_options(-std=c++11 -Wall -Werror)
 set(APP_NAME RayTracerLinuxApp)
 set(APP_LIB_NAME RayTracerLinuxAppLib)
 
+if(CMAKE_CROSSCOMPILING)
 # (2) Include application build instructions
-add_subdirectory(src)
-
-# (3) include tests build instructions   
-option(COMPILE_TESTS "Compile the tests" OFF)
-if(COMPILE_TESTS)
-  add_subdirectory(tests)
-endif(COMPILE_TESTS)
+    message(STATUS "Crosscompiling enabled, using toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
+    add_subdirectory(src)
+else()
+# (3) include tests build instructions
+    message(STATUS "No crosscompiling specified, compiling in /tests only.")
+    add_subdirectory(tests)
+endif(CMAKE_CROSSCOMPILING)

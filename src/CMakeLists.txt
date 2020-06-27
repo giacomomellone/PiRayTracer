@@ -1,11 +1,9 @@
-# (1) Build a library with my application sources
-set(APP_LIB_SOURCE
-    main.cpp
-    tuple.cpp
-)
+cmake_minimum_required(VERSION 3.10)
 
-add_library(${APP_LIB_NAME} ${APP_LIB_SOURCE})
+include_directories(../include)
 
-# (2) Add main(..) to the application library to have something we can run
-add_executable(${APP_NAME} main.cpp)
-target_link_libraries(${APP_NAME} ${APP_LIB_NAME})
+file(GLOB USER_SOURCES 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp)
+
+add_executable(RayTracer.elf ${USER_SOURCES})
+target_link_libraries(RayTracer.elf)
