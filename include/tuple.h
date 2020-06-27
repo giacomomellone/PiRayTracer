@@ -1,29 +1,45 @@
+/*******************************************************************************
+ *    Tuple header
+ ******************************************************************************/
+
 #ifndef TUPLE_HPP
 #define TUPLE_HPP
 
+/*******************************************************************************
+ *    INCLUDED FILES
+ ******************************************************************************/
+
+#include "utils.h"
 #include <stdlib.h>
 #include <cmath>
 
 using namespace std;
 
-// Conditional compilation, since STM32 float is calculated differently than x86
+/*******************************************************************************
+ *    PUBLIC TYPES
+ ******************************************************************************/
 
-#ifdef STM32
-#define EPSILON 0.01f
-#else
-#define EPSILON 0.0001f
-#endif
-
-bool equal(float x, float y);
-
-class Tuple {
+/**
+ * Tuple object
+ *
+ */
+class Tuple
+{
 	public:
 		float x, y, z, w;
+
+		/********** CTOR / DTOR ***********/
 		Tuple();
 		Tuple(float x, float y, float z, float w);
+
+		/********** PUBLIC METHOD PROTOTYPES ***********/
 		bool IsPoint();
 		bool IsVector();
 };
+
+/*******************************************************************************
+ *    CLASS SUPPORT FUNCTIONS PROTOTYPES
+ ******************************************************************************/
 
 Tuple Point(float x, float y, float z);
 Tuple Vector(float x, float y, float z);
