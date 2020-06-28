@@ -35,6 +35,18 @@ class Tuple
 		/********** PUBLIC METHOD PROTOTYPES ***********/
 		bool IsPoint();
 		bool IsVector();
+		float Magnitude();
+		Tuple Normalize();
+		float Dot(Tuple const &t);
+		Tuple Cross(Tuple const &t);
+
+		friend bool operator == (const Tuple &t1, const Tuple &t2);
+		friend Tuple operator + (const Tuple &t1, const Tuple &t2);
+		friend Tuple operator - (const Tuple &t1, const Tuple &t2);
+		friend Tuple operator - (const Tuple &t);
+		friend Tuple operator * (const Tuple &t, const float &s);
+		friend float operator * (const Tuple &t1, const Tuple &t2);
+		friend Tuple operator / (const Tuple &t, const float &s);
 };
 
 /*******************************************************************************

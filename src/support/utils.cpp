@@ -5,7 +5,7 @@
  *      Author: deddi
  */
 
-#include "../include/utils.h"
+#include "../../include/utils.h"
 
 bool equal(float x, float y)
 {
