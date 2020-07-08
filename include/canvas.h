@@ -1,9 +1,9 @@
 /*******************************************************************************
- *    Color header
+ *    Tuple header
  ******************************************************************************/
 
-#ifndef COLOR_HPP
-#define COLOR_HPP
+#ifndef CANVAS_HPP
+#define CANVAS_HPP
 
 /*******************************************************************************
  *    INCLUDED FILES
@@ -11,53 +11,38 @@
 
 #include "utils.h"
 #include "tuple.h"
+#include "color.h"
 #include <stdlib.h>
 #include <cmath>
 
 using namespace std;
+
+#define CANVAS_MAX_SIZE_EDGE 1000
 
 /*******************************************************************************
  *    PUBLIC TYPES
  ******************************************************************************/
 
 /**
- * Tuple object
+ * Canvas object
  *
  */
-class Color: public Tuple
+class Canvas
 {
-    public:
-        /********** CTOR / DTOR ***********/
-        Color(float r, float g, float b) : Tuple(r, g, b, 0) {};
-        Color() : Tuple(0, 0, 0, 0) {};
+	public:
+		uint32_t height, width;
+		Color *buf;
 
-        /********** PUBLIC METHOD PROTOTYPES ***********/
-        inline float r() 
-        {
-            return this->x;
-        }
-        
-        inline float g() 
-        {
-            return this->y;
-        }
-        
-        inline float b() 
-        {
-            return this->z;
-        }
+		/********** CTOR / DTOR ***********/
+		Canvas(uint32_t height, uint32_t width);
 
-        inline friend Color operator * (Color &c1, Color &c2)
-        {
-            return Color(
-                    c1.r() * c2.r(),
-                    c1.g() * c2.g(),
-                    c1.b() * c2.b());
-        }
+		Color GetPixel(uint32_t w_pos, uint32_t h_pos);
+		void WritePixel(uint32_t w_pos, uint32_t h_pos, Color co);
+
 };
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
  ******************************************************************************/
 
-#endif // COLOR_HPP_
+#endif // CANVAS_HPP
