@@ -30,14 +30,15 @@ using namespace std;
 class Canvas
 {
 	public:
-		uint32_t height, width;
+		uint32_t x, y;
 		Color *buf;
 
 		/********** CTOR / DTOR ***********/
-		Canvas(uint32_t height, uint32_t width);
+		Canvas(uint32_t x, uint32_t y);
 
-		Color GetPixel(uint32_t w_pos, uint32_t h_pos);
-		void WritePixel(uint32_t w_pos, uint32_t h_pos, Color co);
+		Color GetPixel(uint32_t x_pos, uint32_t y_pos);
+		void WritePixel(uint32_t x_pos, uint32_t y_pos, Color co);
+		void SavePPM(void);
 
 };
 
