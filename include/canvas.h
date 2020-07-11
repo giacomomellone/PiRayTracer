@@ -31,14 +31,14 @@ class Canvas
 {
 	public:
 		uint32_t x, y;
-		Color *buf;
+		Color (*buf)[CANVAS_MAX_SIZE_EDGE];
 
 		/********** CTOR / DTOR ***********/
 		Canvas(uint32_t x, uint32_t y);
 
 		Color GetPixel(uint32_t x_pos, uint32_t y_pos);
 		void WritePixel(uint32_t x_pos, uint32_t y_pos, Color co);
-		void SavePPM(void);
+		void SavePPM(string filename);
 
 };
 

@@ -43,36 +43,34 @@ TEST(CanvasTest, Canvas)
     DOUBLES_EQUAL(0.1, cv.GetPixel(2, 3).g(), EPSILON);
     DOUBLES_EQUAL(0.9, cv.GetPixel(2, 3).b(), EPSILON);
     DOUBLES_EQUAL(0, cv.GetPixel(2, 2).r(), EPSILON);
-//    CHECK(t_point.IsPoint());
 }
 
 TEST(CanvasTest, SavePPM)
 {
-    Canvas cv = Canvas(5, 3);
+    Canvas cv1 = Canvas(5, 3);
     Color c1 = Color(1.5, 0, 0);
     Color c2 = Color(0, 0.5, 0);
     Color c3 = Color(-0.5, 0, 1);
 
-    cv.WritePixel(0, 0, c1);
-    cv.WritePixel(2, 1, c2);
-    cv.WritePixel(4, 2, c3);
+    cv1.WritePixel(0, 0, c1);
+    cv1.WritePixel(2, 1, c2);
+    cv1.WritePixel(4, 2, c3);
 
-    cv.SavePPM();
+    cv1.SavePPM("0x000.ppm");
 }
 
 TEST(CanvasTest, SavePPMSetEachPixel)
 {
-    Canvas cv = Canvas(10, 2);
+    Canvas cv2 = Canvas(10, 2);
     Color co = Color(1, 0.8, 0.6);
 
-    for (uint32_t i = 0; i < cv.x; i++)
+    for (uint32_t i = 0; i < cv2.x; i++)
     {
-        for (uint32_t j = 0; j < cv.y; j++)
+        for (uint32_t j = 0; j < cv2.y; j++)
         {
-            cv.WritePixel(i, j, co);
+            cv2.WritePixel(i, j, co);
         }
     }
 
-    /* TODO passa path come parametro */
-    cv.SavePPM();
+    cv2.SavePPM("0x001.ppm");
 }

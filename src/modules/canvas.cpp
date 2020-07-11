@@ -3,6 +3,8 @@
  ******************************************************************************/
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <string.h>
 #include "../../include/utils.h"
 #include "../../include/canvas.h"
 
@@ -11,7 +13,7 @@ using namespace std;
 /*******************************************************************************
  *    PRIVATES
  ******************************************************************************/
-Color data_buffer[CANVAS_MAX_SIZE_EDGE * CANVAS_MAX_SIZE_EDGE];
+Color data_buffer[CANVAS_MAX_SIZE_EDGE][CANVAS_MAX_SIZE_EDGE];
 
 int GetPixelColor8bit(float co);
 /*******************************************************************************
@@ -28,7 +30,10 @@ Canvas::Canvas(uint32_t x, uint32_t y)
     this->x = x;
     this->y = y;
 
-    this->buf = (Color *) data_buffer;
+    memset(data_buffer, 0, sizeof(Color) *
+            (CANVAS_MAX_SIZE_EDGE * CANVAS_MAX_SIZE_EDGE));
+
+    this->buf = data_buffer;
 }
 
 
@@ -37,20 +42,30 @@ Canvas::Canvas(uint32_t x, uint32_t y)
  ******************************************************************************/
 Color Canvas::GetPixel(uint32_t x_pos, uint32_t y_pos)
 {
-    return this->buf[x_pos * this->y + y_pos];
+    if (x_pos > this->x || y_pos > this->y)
+    {
+        throw "GetPixel exceed the maximum canvas defined value!";
+    }
+
+    return this->buf[(int) y_pos][(int) x_pos];
 }
 
 void Canvas::WritePixel(uint32_t x_pos, uint32_t y_pos, Color co)
 {
-    this->buf[x_pos * this->y + y_pos] = co;
+    if (x_pos > this->x || y_pos > this->y)
+    {
+        throw "GetPixel exceed the maximum canvas defined value!";
+    }
+
+    this->buf[(int) y_pos][(int) x_pos] = co;
 }
 
-void Canvas::SavePPM(void)
+void Canvas::SavePPM(string filename)
 {
-    Color c_temp;
+    Color c_temp = Color();
     ofstream f_ppm;
 
-    f_ppm.open("../../ppm_outputs/out_0x000.ppm");
+    f_ppm.open("../../ppm_outputs/" + filename);
 
     f_ppm << "P3\n";
     f_ppm << this->x << " " << this->y << endl;
@@ -59,9 +74,9 @@ void Canvas::SavePPM(void)
 
     int count = 0;
 
-    for (uint32_t i = 0; i < this->x; i++)
+    for (uint32_t j = 0; j < this->y; j++)
     {
-        for (uint32_t j = 0; j < this->y; j++)
+        for (uint32_t i = 0; i < this->x; i++)
         {
             c_temp = this->GetPixel(i, j);
 
@@ -80,6 +95,7 @@ void Canvas::SavePPM(void)
             }
         }
     }
+    f_ppm << "\n";
 
     f_ppm.close();
 
