@@ -5,7 +5,6 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
-#include "../../include/utils.h"
 #include "../../include/canvas.h"
 
 using namespace std;
@@ -40,11 +39,11 @@ Canvas::Canvas(uint32_t x, uint32_t y)
 /*******************************************************************************
  *    PUBLIC METHODS
  ******************************************************************************/
-Color Canvas::GetPixel(uint32_t x_pos, uint32_t y_pos)
+Color Canvas::ReadPixel(uint32_t x_pos, uint32_t y_pos)
 {
     if (x_pos > this->x || y_pos > this->y)
     {
-        throw "GetPixel exceed the maximum canvas defined value!";
+        throw "ReadPixel exceed the maximum canvas defined value!";
     }
 
     return this->buf[(int) y_pos][(int) x_pos];
@@ -54,7 +53,7 @@ void Canvas::WritePixel(uint32_t x_pos, uint32_t y_pos, Color co)
 {
     if (x_pos > this->x || y_pos > this->y)
     {
-        throw "GetPixel exceed the maximum canvas defined value!";
+        throw "WritePixel exceed the maximum canvas defined value!";
     }
 
     this->buf[(int) y_pos][(int) x_pos] = co;
@@ -78,7 +77,7 @@ void Canvas::SavePPM(string filename)
     {
         for (uint32_t i = 0; i < this->x; i++)
         {
-            c_temp = this->GetPixel(i, j);
+            c_temp = this->ReadPixel(i, j);
 
             f_ppm << GetPixelColor8bit(c_temp.r()) << " ";
             f_ppm << GetPixelColor8bit(c_temp.g()) << " ";

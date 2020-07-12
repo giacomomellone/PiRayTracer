@@ -39,10 +39,10 @@ TEST(CanvasTest, Canvas)
     Canvas cv = Canvas(10, 20);
     cv.WritePixel(2, 3, Color(0.2, 0.1, 0.9));
 
-    DOUBLES_EQUAL(0.2, cv.GetPixel(2, 3).r(), EPSILON);
-    DOUBLES_EQUAL(0.1, cv.GetPixel(2, 3).g(), EPSILON);
-    DOUBLES_EQUAL(0.9, cv.GetPixel(2, 3).b(), EPSILON);
-    DOUBLES_EQUAL(0, cv.GetPixel(2, 2).r(), EPSILON);
+    DOUBLES_EQUAL(0.2, cv.ReadPixel(2, 3).r(), EPSILON);
+    DOUBLES_EQUAL(0.1, cv.ReadPixel(2, 3).g(), EPSILON);
+    DOUBLES_EQUAL(0.9, cv.ReadPixel(2, 3).b(), EPSILON);
+    DOUBLES_EQUAL(0, cv.ReadPixel(2, 2).r(), EPSILON);
 }
 
 TEST(CanvasTest, SavePPM)

@@ -8,11 +8,9 @@
 /*******************************************************************************
  *    INCLUDED FILES
  ******************************************************************************/
-
-#include "utils.h"
-#include "tuple.h"
 #include <stdlib.h>
 #include <cmath>
+#include "tuple.h"
 
 using namespace std;
 
