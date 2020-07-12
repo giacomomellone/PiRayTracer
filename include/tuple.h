@@ -10,6 +10,7 @@
  ******************************************************************************/
 #include <stdlib.h>
 #include <cmath>
+#include <assert.h>
 #include "utils.h"
 
 using namespace std;
@@ -39,6 +40,8 @@ class Tuple
 		float Dot(Tuple const &t);
 		Tuple Cross(Tuple const &t);
 
+		float operator () (int) const;
+		float& operator () (int);
 		friend bool operator == (const Tuple &t1, const Tuple &t2);
 		friend Tuple operator + (const Tuple &t1, const Tuple &t2);
 		friend Tuple operator - (const Tuple &t1, const Tuple &t2);

@@ -65,6 +65,43 @@ Tuple Tuple::Cross (const Tuple &t)
            this->x * t.y - this->y * t.x);
 }
 
+float Tuple::operator() (int pos) const
+{
+    assert (pos < 4);
+
+    switch (pos)
+    {
+    case 0:
+        return this->x;
+    case 1:
+        return this->y;
+    case 2:
+        return this->z;
+    case 3:
+        return this->w;
+    default:
+        return 0;
+    }
+}
+
+float& Tuple::operator() (int pos)
+{
+    assert (pos < 4);
+
+    switch (pos)
+    {
+    default:
+    case 0:
+        return this->x;
+    case 1:
+        return this->y;
+    case 2:
+        return this->z;
+    case 3:
+        return this->w;
+    }
+}
+
 bool operator == (const Tuple &t1, const Tuple &t2)
 {
 	return (equal(t1.x, t2.x) &&
