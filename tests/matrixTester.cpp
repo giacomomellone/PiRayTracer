@@ -98,5 +98,51 @@ TEST(MatrixTest, MatrixEqual)
     CHECK(m1 == m2);
     CHECK_FALSE(m1 == m3);
     CHECK_FALSE(m1 == m4);
+    CHECK_FALSE(m1 != m2);
+    CHECK(m1 != m3);
+    CHECK(m1 != m4);
+}
+
+TEST(MatrixTest, MatrixMultiplication)
+{
+    Matrix m1(4, 4,
+        {1, 2, 3, 4,
+        5, 6, 7, 8,
+        9, 8, 7, 6,
+        5, 4, 3, 2});
+
+    Matrix m2(4, 4,
+        {-2, 1, 2, 3,
+        3, 2, 1, -1,
+        4, 3, 6, 5,
+        1, 2, 7, 8});
+
+    Matrix m_res = m1 * m2;
+
+    DOUBLES_EQUAL(20, m_res(0,0), EPSILON);
+    DOUBLES_EQUAL(48, m_res(0,3), EPSILON);
+    DOUBLES_EQUAL(44, m_res(1,0), EPSILON);
+    DOUBLES_EQUAL(114, m_res(1,2), EPSILON);
+    DOUBLES_EQUAL(110, m_res(2,2), EPSILON);
+    DOUBLES_EQUAL(16, m_res(3,0), EPSILON);
+    DOUBLES_EQUAL(46, m_res(3,2), EPSILON);
+}
+
+TEST(MatrixTest, TupleMultiplication)
+{
+    Matrix m(4, 4,
+        {1, 2, 3, 4,
+        2, 4, 4, 2,
+        8, 6, 4, 1,
+        0, 0, 0, 1});
+
+    Tuple t = Tuple(1, 2, 3, 1);
+
+    Tuple t_res = m * t;
+
+    DOUBLES_EQUAL(18, t_res.x, EPSILON);
+    DOUBLES_EQUAL(24, t_res.y, EPSILON);
+    DOUBLES_EQUAL(33, t_res.z, EPSILON);
+    DOUBLES_EQUAL(1, t_res.w, EPSILON);
 }
 

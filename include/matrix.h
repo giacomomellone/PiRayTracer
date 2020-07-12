@@ -39,7 +39,9 @@ class Matrix
     float& operator () (uint8_t, uint8_t);
 
     friend bool operator == (const Matrix &m1, const Matrix &m2);
-
+    friend bool operator != (const Matrix &m1, const Matrix &m2);
+    friend Matrix operator * (const Matrix &m1, const Matrix &m2);
+    friend Tuple operator * (const Matrix &m1, const Tuple &t2);
 
     // void print();
 };

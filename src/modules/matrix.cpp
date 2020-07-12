@@ -87,6 +87,63 @@ bool operator == (const Matrix &m1, const Matrix &m2)
     return true;
 }
 
+bool operator != (const Matrix &m1, const Matrix &m2)
+{
+    if (m1.cols == m2.cols && m1.rows == m2.rows)
+    {
+        for(int i = 0; i < m1.rows; i++)
+        {
+            for(int j = 0; j < m1.cols; j++)
+            {
+                if (m1.m_data[i][j] != m2.m_data[i][j])
+                    return true;
+            }
+        }
+    }
+    else
+        return true;
+
+    return false;
+}
+
+Matrix operator * (const Matrix &m1, const Matrix &m2)
+{
+    assert (m1.cols == m2.rows);
+
+    Matrix m_res = Matrix(m1.rows, m2.cols);
+
+    for(int i = 0; i < m1.rows; i++)
+    {
+        for(int j = 0; j < m1.cols; j++)
+        {
+            for (int k = 0; k < m1.cols; k++)
+            {
+                m_res(i, j) += m1(i, k) * m2(k, j);
+            }
+        }
+    }
+
+    return m_res;
+}
+
+Tuple operator * (const Matrix &m1, const Tuple &t2)
+{
+    assert (m1.cols == 4);
+    assert (m1.rows == 4);
+
+    Tuple t_res = Tuple();
+
+    for(int i = 0; i < 4; i++)
+    {
+        for (int k = 0; k < 4; k++)
+        {
+            t_res(i) += m1(i, k) * t2(k);
+        }
+    }
+
+    return t_res;
+}
+
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS
  ******************************************************************************/
