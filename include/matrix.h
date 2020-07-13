@@ -35,20 +35,37 @@ class Matrix
         Matrix(uint8_t rows, uint8_t cols, std::vector<float> data);
         Matrix(uint8_t rows, uint8_t cols);
 
-    float operator () (uint8_t, uint8_t) const;
-    float& operator () (uint8_t, uint8_t);
+        uint8_t Cols(void)
+        {
+            return this->cols;
+        }
+        uint8_t Rows(void)
+        {
+            return this->rows;
+        }
 
-    friend bool operator == (const Matrix &m1, const Matrix &m2);
-    friend bool operator != (const Matrix &m1, const Matrix &m2);
-    friend Matrix operator * (const Matrix &m1, const Matrix &m2);
-    friend Tuple operator * (const Matrix &m1, const Tuple &t2);
+        float operator () (uint8_t, uint8_t) const;
+        float& operator () (uint8_t, uint8_t);
 
-    // void print();
+        friend bool operator == (const Matrix &m1, const Matrix &m2);
+        friend bool operator != (const Matrix &m1, const Matrix &m2);
+        friend Matrix operator * (const Matrix &m1, const Matrix &m2);
+        friend Tuple operator * (const Matrix &m1, const Tuple &t2);
+        friend Matrix operator * (const Matrix &m, const float &val);
+        friend Matrix operator / (const Matrix &m, const float &val);
+
+        Matrix Transpose(void);
+        float Determinant(void);
+        Matrix Submatrix(const uint8_t row, const uint8_t col);
+        float Minor(uint8_t row, uint8_t col);
+        float Cofactor(uint8_t row, uint8_t col);
+        bool IsInvertible(void);
+        Matrix Inverse(void);
+
 };
-
-
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
  ******************************************************************************/
+Matrix IdentityMatrix(void);
 
 #endif // MATRIX_HPP
