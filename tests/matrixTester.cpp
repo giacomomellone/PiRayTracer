@@ -154,7 +154,7 @@ TEST(MatrixTest, Identity)
         8, 6, 4, 1,
         0, 0, 0, 1});
 
-    Matrix identity = IdentityMatrix();
+    Matrix identity = IdentityMatrix(4, 4);
 
     Tuple t = Tuple(1, 2, 3, 1);
 

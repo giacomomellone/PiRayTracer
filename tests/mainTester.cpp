@@ -3,6 +3,7 @@
 #include "modules/tuple.cpp"
 #include "modules/canvas.cpp"
 #include "modules/matrix.cpp"
+#include "modules/transformation.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

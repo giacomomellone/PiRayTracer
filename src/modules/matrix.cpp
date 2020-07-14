@@ -265,9 +265,9 @@ Matrix Matrix::Inverse(void)
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS
  ******************************************************************************/
-Matrix IdentityMatrix(void)
+Matrix IdentityMatrix(uint8_t rows, uint8_t cols)
 {
-    Matrix m = Matrix(4, 4);
+    Matrix m = Matrix(rows, cols);
 
     for (int i = 0; i < m.Cols(); i++)
         m(i, i) = 1;

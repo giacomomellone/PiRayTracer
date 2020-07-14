@@ -66,6 +66,6 @@ class Matrix
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
  ******************************************************************************/
-Matrix IdentityMatrix(void);
+Matrix IdentityMatrix(uint8_t rows, uint8_t cols);
 
 #endif // MATRIX_HPP
