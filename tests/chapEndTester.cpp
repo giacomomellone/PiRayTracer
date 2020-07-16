@@ -7,6 +7,8 @@
 #include "../include/tuple.h"
 #include "../include/color.h"
 #include "../include/canvas.h"
+#include "../include/matrix.h"
+#include "../include/transformation.h"
 
 
 /*******************************************************************************
@@ -69,9 +71,9 @@ Projectile tick(Environment e, Projectile p)
  *    TESTS
  ******************************************************************************/
 
-TEST_GROUP(Chap_1_2_Test) {};
+TEST_GROUP(EndChapterTest) {};
 
-TEST(Chap_1_2_Test, projectile)
+TEST(EndChapterTest, Chap1_projectile)
 {
     Tuple projPosition = Point(0, 1, 0.3);
     Tuple projVelocity = Vector(1, 1, -0.3);
@@ -94,7 +96,7 @@ TEST(Chap_1_2_Test, projectile)
     }
 }
 
-TEST(Chap_1_2_Test, projectileCanvas)
+TEST(EndChapterTest, Chap2_projectileCanvas)
 {
     Tuple projPosition = Point(0, 1, 0);
     Tuple projVelocity = Vector(10, 5.8, 0);
@@ -125,3 +127,27 @@ TEST(Chap_1_2_Test, projectileCanvas)
     cv.SavePPM("0x002.ppm");
 }
 
+TEST(EndChapterTest, Chap4_watchRotation)
+{
+    uint32_t side = 300;
+
+    Canvas cv = Canvas(side, side);
+    Color co = Color(1, 1, 1);
+
+    Tuple origin = Point(100, 0, 0);
+
+    Matrix tr = Translation(side/2, side/2, 0);
+    Matrix rot_z = RotationZ(M_PI / 6);
+
+    Tuple p = tr * origin;
+
+    for (int i = 0; i < 12; i++)
+    {
+        origin = rot_z * origin;
+        p = tr * rot_z * origin;
+//        printf("%d) p.x: %f, p.y: %f\n", i, p.x, p.y);
+        cv.WritePixel(p.x, cv.y - p.y, co);
+    }
+
+    cv.SavePPM("0x003.ppm");
+}
