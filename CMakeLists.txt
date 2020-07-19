@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.7)
 project(RayTracerLinux)
 
-add_compile_options(-std=c++17 -Wall -Werror)
+add_compile_options(-std=c++11 -Wall -Werror)
 
 set(APP_NAME RayTracerLinuxApp)
 set(APP_LIB_NAME RayTracerLinuxAppLib)
