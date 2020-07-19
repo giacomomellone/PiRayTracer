@@ -143,6 +143,11 @@ Tuple operator * (const Tuple &t, const float &s)
             t.w * s);
 }
 
+Tuple operator * (const float &s, const Tuple &t)
+{
+    return t * s;
+}
+
 Tuple operator / (const Tuple &t, const float &s)
 {
     return Tuple(

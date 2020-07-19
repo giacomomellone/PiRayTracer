@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <assert.h>
-#include "utils.h"
+#include "support/utils.h"
 
 using namespace std;
 
@@ -47,6 +47,7 @@ class Tuple
 		friend Tuple operator - (const Tuple &t1, const Tuple &t2);
 		friend Tuple operator - (const Tuple &t);
 		friend Tuple operator * (const Tuple &t, const float &s);
+		friend Tuple operator * (const float &s, const Tuple &t);
 		friend float operator * (const Tuple &t1, const Tuple &t2);
 		friend Tuple operator / (const Tuple &t, const float &s);
 };
