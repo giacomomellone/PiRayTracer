@@ -1,5 +1,5 @@
 /*******************************************************************************
- *    Tuple header
+ *    Matrix header
  ******************************************************************************/
 
 #ifndef MATRIX_HPP
@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <vector>
-#include "utils.h"
+#include "support/utils.h"
 #include "tuple.h"
 
 #define MAX_MATRIX_SIZE 5
@@ -32,7 +32,7 @@ class Matrix
         uint8_t rows, cols;
         float m_data[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
     public:
-        Matrix(uint8_t rows, uint8_t cols, std::vector<float> data);
+        Matrix(uint8_t rows, uint8_t cols, vector<float> data);
         Matrix(uint8_t rows, uint8_t cols);
 
         uint8_t Cols(void)

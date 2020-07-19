@@ -14,7 +14,7 @@ using namespace std;
 /*******************************************************************************
  *    CONSTRUCTOR, DESTRUCTOR
  ******************************************************************************/
-Matrix::Matrix(uint8_t rows, uint8_t cols, std::vector<float> data)
+Matrix::Matrix(uint8_t rows, uint8_t cols, vector<float> data)
 {
     assert (rows <= MAX_MATRIX_SIZE);
     assert (cols <= MAX_MATRIX_SIZE);
