@@ -1,21 +1,13 @@
 /*******************************************************************************
  *    INCLUDED FILES
  ******************************************************************************/
-#include "../../include/tuple.h"
+#include "module.h"
 
 /*******************************************************************************
  *    CONSTRUCTOR, DESTRUCTOR
  ******************************************************************************/
 
-Tuple::Tuple(float x, float y, float z, float w)
-{
-    this->x = x;
-    this->y = y;
-    this->z = z;
-    this->w = w;
-}
-
-Tuple::Tuple()
+Ctor::Ctor()
 {
     this->x = 0;
     this->y = 0;
@@ -27,26 +19,13 @@ Tuple::Tuple()
  *    PUBLIC METHODS
  ******************************************************************************/
 
-bool Tuple::IsPoint()
+bool Ctor::DoSomething(void)
 {
-    return equal(this->w, 1.0);
+    return true;
 }
 
-Tuple operator + (const Tuple &t1, const Tuple &t2)
-{
-	return Tuple(
-			t1.x + t2.x,
-			t1.y + t2.y,
-			t1.z + t2.z,
-			t1.w + t2.w);
-}
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS
  ******************************************************************************/
-
-Tuple Point(float x, float y, float z)
-{
-	return Tuple(x, y, z, 1);
-}
 
