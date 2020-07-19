@@ -6,7 +6,6 @@
 #include <fstream>
 
 //-- module being tested
-#include "../include/utils.h"
 #include "../include/matrix.h"
 
 /*******************************************************************************
