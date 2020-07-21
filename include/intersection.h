@@ -11,15 +11,13 @@
 #include <vector>
 #include "tuple.h"
 #include "ray.h"
+#include "shapes/sphere.h"
 #include "support/utils.h"
 
 using namespace std;
 /*******************************************************************************
  *    PUBLIC TYPES
  ******************************************************************************/
-
-/* Forward declarations */
-class Shape;
 
 /**
  * Intersection object
@@ -29,17 +27,19 @@ class Intersection
 {
     public:
         float t;
-        Shape *s;
+        Shape s;
 
         /********** CTOR / DTOR ***********/
-        Intersection(float xsValue, Shape *s);
-        Intersection() {this->t = 0; this->s = NULL;}
+        Intersection(float xsValue, Shape s);
+        Intersection() {this->t = 0; this->s = Shape();}
 
         bool operator== (const Intersection &);
         bool operator< (const Intersection &);
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
 };
+
+vector<Intersection> Intersect(Sphere s, Ray r);
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
@@ -55,6 +55,6 @@ vector<Intersection> Intersections(Args const&... args)
     return retVal;
 }
 
-Intersection Hit(vector<Intersection> xs);
+Intersection* Hit(vector<Intersection> *xs);
 
 #endif /* INCLUDE_INTERSECTION_H_ */

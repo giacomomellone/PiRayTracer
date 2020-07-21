@@ -12,15 +12,12 @@
 #include <cmath>
 #include "../tuple.h"
 #include "../ray.h"
-#include "../intersection.h"
 #include "../support/utils.h"
 
 using namespace std;
 /*******************************************************************************
  *    PUBLIC TYPES
  ******************************************************************************/
-
-class Intersection;
 
 /**
  * Shape object
@@ -38,8 +35,6 @@ class Shape
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
         friend bool operator== (const Shape &s1, const Shape &s2);
-
-        virtual int Intersect(Ray r, vector<Intersection> &p) = 0;
 };
 
 /*******************************************************************************

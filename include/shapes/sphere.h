@@ -9,14 +9,9 @@
  *    INCLUDED FILES
  ******************************************************************************/
 #include "../shapes/shape.h"
-#include "../intersection.h"
 /*******************************************************************************
  *    PUBLIC TYPES
  ******************************************************************************/
-
-/* Forward declarations */
-class Shape;
-class Intersection;
 
 /**
  * Sphere object
@@ -32,7 +27,6 @@ class Sphere: public Shape
         Sphere();
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
-        int Intersect(Ray r, vector<Intersection> &p);
 };
 
 /*******************************************************************************
