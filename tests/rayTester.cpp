@@ -42,3 +42,23 @@ TEST(RaysTest, raysDistance)
     CHECK(Point(1, 3, 4) == r.Position(-1));
     CHECK(Point(4.5, 3, 4) == r.Position(2.5));
 }
+
+TEST(RaysTest, rayTranslation)
+{
+    Ray r(Point(1, 2, 3), Vector(0, 1, 0));
+
+    Ray rT = r.Transform(Translation(3, 4, 5));
+
+    CHECK(Point(4, 6, 8) == rT.originP);
+    CHECK(Vector(0, 1, 0) == rT.directionV);
+}
+
+TEST(RaysTest, rayScaling)
+{
+    Ray r(Point(1, 2, 3), Vector(0, 1, 0));
+
+    Ray rT = r.Transform(Scaling(2, 3, 4));
+
+    CHECK(Point(2, 6, 12) == rT.originP);
+    CHECK(Vector(0, 3, 0) == rT.directionV);
+}

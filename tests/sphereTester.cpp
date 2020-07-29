@@ -65,3 +65,46 @@ TEST(SphereTest, intersectionsInside)
     DOUBLES_EQUAL(-1, xs[0].t, EPSILON);
     DOUBLES_EQUAL(1, xs[1].t, EPSILON);
 }
+
+TEST(SphereTest, identititySphereMatrix)
+{
+    Sphere s;
+
+    CHECK(s.transfM == IdentityMatrix(4, 4));
+}
+
+TEST(SphereTest, transformationSphereMatrix)
+{
+    Sphere s;
+
+    s.SetTranformation(Translation(2, 3, 4));
+
+    CHECK(s.transfM == Translation(2, 3, 4));
+}
+
+TEST(SphereTest, scaledSphereIntersectionWithRay)
+{
+    Sphere s;
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+
+    s.SetTranformation(Scaling(2, 2, 2));
+
+    vector<Intersection> xs = Intersect(s, r);
+
+    UNSIGNED_LONGS_EQUAL(2, xs.size());
+
+    UNSIGNED_LONGS_EQUAL(3, xs[0].t);
+    UNSIGNED_LONGS_EQUAL(7, xs[1].t);
+}
+
+TEST(SphereTest, translatedSphereIntersectionWithRay)
+{
+    Sphere s;
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+
+    s.SetTranformation(Translation(5, 0, 0));
+
+    vector<Intersection> xs = Intersect(s, r);
+
+    UNSIGNED_LONGS_EQUAL(0, xs.size());
+}

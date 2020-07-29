@@ -12,6 +12,7 @@
 #include <cmath>
 #include "../tuple.h"
 #include "../ray.h"
+#include "../matrix.h"
 #include "../support/utils.h"
 
 using namespace std;
@@ -28,6 +29,7 @@ class Shape
     public:
         static int shapesCount;
         int shapeID;
+        Matrix transfM = IdentityMatrix(4, 4);
 
         /********** CTOR / DTOR ***********/
         Shape();
@@ -35,6 +37,8 @@ class Shape
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
         friend bool operator== (const Shape &s1, const Shape &s2);
+
+        void SetTranformation(Matrix m);
 };
 
 /*******************************************************************************

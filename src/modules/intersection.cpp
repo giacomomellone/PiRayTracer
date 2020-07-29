@@ -35,6 +35,11 @@ vector<Intersection> Intersect(Sphere s, Ray r)
 {
     vector<Intersection> intV(2);
 
+    /* Apply the inverse of the sphere transformation
+     * to the ray itself
+     */
+    r = r.Transform(s.transfM.Inverse());
+
     /* Calculate the discriminant to know whether the ray
      * intersect the sphere */
     Tuple sphereToRay = r.originP - s.originP;

@@ -26,7 +26,10 @@ bool operator== (const Shape &s1, const Shape &s2)
         return false;
 }
 
-
+void Shape::SetTranformation(Matrix m)
+{
+    this->transfM = m;
+}
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS
  ******************************************************************************/
