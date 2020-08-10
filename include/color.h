@@ -45,12 +45,33 @@ class Color: public Tuple
             return this->z;
         }
 
+        inline friend Color operator + (Color &c1, Color &c2)
+        {
+            return Color(
+                    c1.r() + c2.r(),
+                    c1.g() + c2.g(),
+                    c1.b() + c2.b());
+        }
+
         inline friend Color operator * (Color &c1, Color &c2)
         {
             return Color(
                     c1.r() * c2.r(),
                     c1.g() * c2.g(),
                     c1.b() * c2.b());
+        }
+
+        inline friend Color operator * (Color &c, const float &s)
+        {
+            return Color(
+                    c.r() * s,
+                    c.g() * s,
+                    c.b() * s);
+        }
+
+        inline friend Color operator * (const float &s, Color &c)
+        {
+            return c * s;
         }
 };
 
