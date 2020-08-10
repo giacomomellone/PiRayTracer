@@ -11,6 +11,7 @@ int Shape::shapesCount = 0;
 Shape::Shape()
 {
     this->shapeID = ++this->shapesCount;
+    this->material = Material();
 }
 
 /*******************************************************************************

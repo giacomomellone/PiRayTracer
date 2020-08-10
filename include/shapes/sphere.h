@@ -25,8 +25,10 @@ class Sphere: public Shape
 
         /********** CTOR / DTOR ***********/
         Sphere();
+        Sphere(Material material);
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
+        Tuple Normal(Tuple worldPoint);
 };
 
 /*******************************************************************************
