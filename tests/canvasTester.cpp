@@ -56,7 +56,7 @@ TEST(CanvasTest, SavePPM)
     cv1.WritePixel(2, 1, c2);
     cv1.WritePixel(4, 2, c3);
 
-    cv1.SavePPM("0x000.ppm");
+//    cv1.SavePPM("0x000.ppm");
 }
 
 TEST(CanvasTest, SavePPMSetEachPixel)
@@ -72,5 +72,5 @@ TEST(CanvasTest, SavePPMSetEachPixel)
         }
     }
 
-    cv2.SavePPM("0x001.ppm");
+//    cv2.SavePPM("0x001.ppm");
 }
