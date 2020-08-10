@@ -168,3 +168,11 @@ TEST(TupleTest, Cross)
     CHECK(Vector(1, 2, 3).Cross(Vector(2, 3, 4)) == Vector(-1, 2, -1));
     CHECK(Vector(2, 3, 4).Cross(Vector(1, 2, 3)) == Vector(1, -2, 1));
 }
+
+TEST(TupleTest, Reflect)
+{
+    Tuple v = Vector(0, -1, 0);
+    Tuple n = Vector(sqrtf(2)/2, sqrtf(2)/2, 0);
+
+    CHECK(v.Reflect(n) == Vector(1, 0, 0));
+}
