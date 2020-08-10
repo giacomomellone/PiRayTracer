@@ -9,6 +9,7 @@
 #include "modules/shapes/sphere.cpp"
 #include "modules/shapes/shape.cpp"
 #include "modules/intersection.cpp"
+#include "modules/material.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);
