@@ -108,3 +108,57 @@ TEST(SphereTest, translatedSphereIntersectionWithRay)
 
     UNSIGNED_LONGS_EQUAL(0, xs.size());
 }
+
+TEST(SphereTest, NormalToSphere)
+{
+    Sphere s1;
+    Tuple sN = s1.Normal(Point(1, 0, 0));
+
+    CHECK(sN == Vector(1, 0, 0));
+
+    Sphere s2;
+    sN = s2.Normal(Point(0, 1, 0));
+
+    CHECK(sN == Vector(0, 1, 0));
+
+    Sphere s3;
+    sN = s3.Normal(Point(0, 0, 1));
+
+    CHECK(sN == Vector(0, 0, 1));
+
+    Sphere s4;
+    sN = s4.Normal(Point(sqrtf(3)/3, sqrtf(3)/3, sqrtf(3)/3));
+
+    CHECK(sN == Vector(sqrtf(3)/3, sqrtf(3)/3, sqrtf(3)/3));
+}
+
+TEST(SphereTest, TransformedSphereNormalTranslation)
+{
+    Sphere s;
+
+    s.SetTranformation(Translation(0, 1, 0));
+
+    Tuple sN = s.Normal(Point(0, 1.70711, -0.70711));
+
+    CHECK(sN == Vector(0, 0.70711, -0.70711));
+}
+
+
+TEST(SphereTest, TransformedSphereNormal)
+{
+    Sphere s;
+
+    s.SetTranformation(Scaling(1, 0.5, 1) * RotationZ(M_PI/5));
+
+    Tuple sN = s.Normal(Point(0, sqrtf(2)/2, -sqrtf(2)/2));
+
+    CHECK(sN == Vector(0, 0.97014, -0.24254));
+}
+
+TEST(SphereTest, defaultMaterial)
+{
+    Sphere s;
+    Material m;
+
+   CHECK(s.material == m);
+}
