@@ -13,6 +13,7 @@
 #include "../tuple.h"
 #include "../ray.h"
 #include "../matrix.h"
+#include "../material.h"
 #include "../support/utils.h"
 
 using namespace std;
@@ -30,6 +31,7 @@ class Shape
         static int shapesCount;
         int shapeID;
         Matrix transfM = IdentityMatrix(4, 4);
+        Material material;
 
         /********** CTOR / DTOR ***********/
         Shape();
@@ -39,6 +41,8 @@ class Shape
         friend bool operator== (const Shape &s1, const Shape &s2);
 
         void SetTranformation(Matrix m);
+
+        virtual Tuple Normal(Tuple worldPoint) = 0;
 };
 
 /*******************************************************************************

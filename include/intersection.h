@@ -27,11 +27,11 @@ class Intersection
 {
     public:
         float t;
-        Shape s;
+        Sphere s;
 
         /********** CTOR / DTOR ***********/
-        Intersection(float xsValue, Shape s);
-        Intersection() {this->t = 0; this->s = Shape();}
+        Intersection(float xsValue, Sphere s);
+        Intersection() {this->t = 0; this->s = Sphere();}
 
         bool operator== (const Intersection &);
         bool operator< (const Intersection &);

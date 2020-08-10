@@ -7,7 +7,7 @@
  *    CONSTRUCTOR, DESTRUCTOR
  ******************************************************************************/
 
-Intersection::Intersection(float xsValue, Shape s)
+Intersection::Intersection(float xsValue, Sphere s)
 {
     this->t = xsValue;
     this->s = s;
