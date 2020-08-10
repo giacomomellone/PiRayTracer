@@ -39,6 +39,7 @@ class Tuple
 		Tuple Normalize();
 		float Dot(Tuple const &t);
 		Tuple Cross(Tuple const &t);
+		Tuple Reflect(Tuple normal);
 
 		float operator () (int) const;
 		float& operator () (int);

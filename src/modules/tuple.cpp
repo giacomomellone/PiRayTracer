@@ -65,6 +65,11 @@ Tuple Tuple::Cross (const Tuple &t)
            this->x * t.y - this->y * t.x);
 }
 
+Tuple Tuple::Reflect(Tuple normal)
+{
+    return *this - normal * 2 * this->Dot(normal);
+}
+
 float Tuple::operator() (int pos) const
 {
     assert (pos < 4);
