@@ -39,7 +39,7 @@ TEST(IntersectionTest, intersectionsEncapsulation)
 //    printf("s.shapeID: %d\n", s.shapeID);
 //    printf("s.shapesCount: %d\n", s.shapesCount);
 
-    Intersection i(3.5, s);
+    Intersection i(3.5, &s);
 //    printf("s.shapeID: %d\n", s.shapeID);
 //    printf("s.shapesCount: %d\n", s.shapesCount);
 //    printf("i.s.shapeID: %d\n", i.s.shapeID);
@@ -52,8 +52,8 @@ TEST(IntersectionTest, intersectionsAggregation)
 {
     Sphere s;
 
-    Intersection i1(1, s);
-    Intersection i2(2, s);
+    Intersection i1(1, &s);
+    Intersection i2(2, &s);
 
     vector<Intersection> xs = Intersections(i1, i2);
 
@@ -67,7 +67,7 @@ TEST(IntersectionTest, intersectionsObjectSet)
     Sphere s;
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
 
     vector<Intersection> xs_all = Intersections(xs[0], xs[1]);
 
@@ -78,75 +78,86 @@ TEST(IntersectionTest, positiveHit)
 {
     Sphere s;
 
-    Intersection i1(1, s);
-    Intersection i2(2, s);
+    Intersection i1(1, &s);
+    Intersection i2(2, &s);
 
     vector<Intersection> xs = Intersections(i1, i2);
 
-    Intersection* i = Hit(&xs);
+    Intersection i = Hit(xs);
 
-    CHECK(i != NULL);
-    CHECK(*i == i1);
+    CHECK(i.s != nullptr);
+    CHECK(i == i1);
 }
 
 TEST(IntersectionTest, negativeHit)
 {
     Sphere s;
 
-    Intersection i1(-1, s);
-    Intersection i2(1, s);
+    Intersection i1(-1, &s);
+    Intersection i2(1, &s);
 
     vector<Intersection> xs = Intersections(i1, i2);
 
-    Intersection* i = Hit(&xs);
+    Intersection i = Hit(xs);
 
-    CHECK(i != NULL);
-    CHECK(*i == i2);
+    CHECK(i.s != nullptr);
+    CHECK(i == i2);
 }
 
 TEST(IntersectionTest, allNegativeHit)
 {
     Sphere s;
 
-    Intersection i1(-2, s);
-    Intersection i2(-1, s);
+    Intersection i1(-2, &s);
+    Intersection i2(-1, &s);
 
     vector<Intersection> xs = Intersections(i1, i2);
 
-    Intersection* i = Hit(&xs);
+    Intersection i = Hit(xs);
 
-    CHECK(i == NULL);
+    CHECK(i.s == nullptr);
 }
 
 TEST(IntersectionTest, lowestPositiveHit)
 {
     Sphere s;
 
-    Intersection i1(5, s);
-    Intersection i2(8, s);
-    Intersection i3(-3, s);
-    Intersection i4(2, s);
+    Intersection i1(5, &s);
+    Intersection i2(8, &s);
+    Intersection i3(-3, &s);
+    Intersection i4(2, &s);
 
     vector<Intersection> xs = Intersections(i1, i2, i3, i4);
 
-    Intersection* i = Hit(&xs);
+    Intersection i = Hit(xs);
 
-    CHECK(i != NULL);
-    CHECK(*i == i4);
+    CHECK(i.s != nullptr);
+    CHECK(i == i4);
 }
 
-TEST(IntersectionTest, prepareComputations)
+TEST(IntersectionTest, prepareComputations_outside)
 {
     Sphere s;
 
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
-    Intersection i(4, s);
+    Intersection i(4, &s);
 
     comps_s comps = prepareComputation(i, r);
 
-    CHECK(comps.t == i.t);
-    CHECK(comps.point == Point(0, 0, -1));
-    CHECK(comps.eyeV == Vector(0, 0, -1));
-    CHECK(comps.normalV == Vector(0, 0, -1));
+    CHECK(comps.inside == false);
 }
 
+TEST(IntersectionTest, prepareComputations_inside)
+{
+    Sphere s;
+
+    Ray r(Point(0, 0, 0), Vector(0, 0, 1));
+    Intersection i(1, &s);
+
+    comps_s comps = prepareComputation(i, r);
+
+    CHECK(comps.point == Point(0, 0, 1));
+    CHECK(comps.eyeV == Vector(0, 0, -1));
+    CHECK(comps.normalV == Vector(0, 0, -1));
+    CHECK(comps.inside == true);
+}

@@ -28,11 +28,11 @@ class Intersection
 {
     public:
         float t;
-        Sphere s;
+        Sphere *s;
 
         /********** CTOR / DTOR ***********/
-        Intersection(float xsValue, Sphere s);
-        Intersection() {this->t = 0; this->s = Sphere();}
+        Intersection(float xsValue, Sphere *s);
+        Intersection() {this->t = 0; this->s = nullptr;}
 
         bool operator== (const Intersection &);
         bool operator< (const Intersection &);
@@ -43,15 +43,12 @@ class Intersection
 typedef struct computation
 {
     float t;
-    Shape *object;
+    Sphere *object;
     Tuple point;
     Tuple eyeV;
     Tuple normalV;
+    bool inside; /* Has the interesection occured inside the object? */
 } comps_s;
-
-vector<Intersection> Intersect(Sphere s, Ray r);
-
-vector<Intersection> IntersectWorld(World w, Ray r);
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
@@ -67,8 +64,8 @@ vector<Intersection> Intersections(Args const&... args)
     return retVal;
 }
 
-Intersection* Hit(vector<Intersection> *xs);
+Intersection Hit(vector<Intersection> const &xs);
 
-comps_s prepareComputation(Intersection i, Ray r);
+comps_s prepareComputation(Intersection const& i, Ray r);
 
 #endif /* INCLUDE_INTERSECTION_H_ */

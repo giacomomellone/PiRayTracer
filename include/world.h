@@ -16,12 +16,15 @@
 /*******************************************************************************
  *    INCLUDED FILES
  ******************************************************************************/
-#include "../include/light.h"
-#include "../include/shapes/sphere.h"
+#include "light.h"
+#include "shapes/sphere.h"
+#include "intersection.h"
+#include "ray.h"
 
 /*******************************************************************************
  *    PUBLIC TYPES
  ******************************************************************************/
+class Intersection;
 
 /**
  * World object
@@ -37,7 +40,9 @@ class World
         World();
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
-
+        Color ShadeHit(struct computation *comps);
+        vector<Intersection> Intersect(Ray &r);
+        Color ColorAt(Ray r);
 };
 
 /*******************************************************************************

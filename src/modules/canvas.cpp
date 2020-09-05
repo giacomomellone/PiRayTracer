@@ -64,7 +64,7 @@ void Canvas::SavePPM(string filename)
     Color c_temp = Color();
     ofstream f_ppm;
 
-#if 1
+#ifndef CROSS_COMPILING_FLAG
     f_ppm.open("../../ppm_outputs/" + filename);
 #else
     f_ppm.open(filename);

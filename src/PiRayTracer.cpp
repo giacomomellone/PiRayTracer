@@ -49,15 +49,15 @@ int main(int argc, char **argv)
              */
             Ray rW(rayOrigin, (pW - rayOrigin).Normalize());
 
-            vector<Intersection> xs = Intersect(s, rW);
+            vector<Intersection> xs = s.Intersect(rW);
 
-            Intersection *hit = Hit(&xs);
+            Intersection hit = Hit(xs);
 
-            if (hit != NULL)
+            if (hit.s != nullptr)
             {
                 /* Calculate the normal vector at the hit */
-                Tuple pointHit = rW.Position(hit->t);
-                Tuple normalAtHit = hit->s.Normal(pointHit);
+                Tuple pointHit = rW.Position(hit.t);
+                Tuple normalAtHit = hit.s->Normal(pointHit);
                 Tuple eyeV = -rW.directionV;
 
                 cv.WritePixel(x, y, Lighting(s.material, lightP, pointHit, eyeV, normalAtHit));

@@ -38,7 +38,7 @@ TEST(SphereTest, intersectionsTangent)
     Sphere s;
     Ray r(Point(0, 1, -5), Vector(0, 0, 1));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
     CHECK(xs.size() == 2);
     DOUBLES_EQUAL(5, xs[0].t, EPSILON);
     DOUBLES_EQUAL(5, xs[1].t, EPSILON);
@@ -49,7 +49,7 @@ TEST(SphereTest, intersectionsMiss)
     Sphere s;
     Ray r(Point(0, 2, -5), Vector(0, 0, 1));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
     CHECK(xs.size() == 0);
     UNSIGNED_LONGS_EQUAL(0, xs[0].t);
     DOUBLES_EQUAL(0, xs[1].t, EPSILON);
@@ -60,7 +60,7 @@ TEST(SphereTest, intersectionsInside)
     Sphere s;
     Ray r(Point(0, 0, 0), Vector(0, 0, 1));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
     CHECK(xs.size() == 2);
     DOUBLES_EQUAL(-1, xs[0].t, EPSILON);
     DOUBLES_EQUAL(1, xs[1].t, EPSILON);
@@ -89,7 +89,7 @@ TEST(SphereTest, scaledSphereIntersectionWithRay)
 
     s.SetTranformation(Scaling(2, 2, 2));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
 
     UNSIGNED_LONGS_EQUAL(2, xs.size());
 
@@ -104,7 +104,7 @@ TEST(SphereTest, translatedSphereIntersectionWithRay)
 
     s.SetTranformation(Translation(5, 0, 0));
 
-    vector<Intersection> xs = Intersect(s, r);
+    vector<Intersection> xs = s.Intersect(r);
 
     UNSIGNED_LONGS_EQUAL(0, xs.size());
 }
