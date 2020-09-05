@@ -134,3 +134,19 @@ TEST(IntersectionTest, lowestPositiveHit)
     CHECK(i != NULL);
     CHECK(*i == i4);
 }
+
+TEST(IntersectionTest, prepareComputations)
+{
+    Sphere s;
+
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Intersection i(4, s);
+
+    comps_s comps = prepareComputation(i, r);
+
+    CHECK(comps.t == i.t);
+    CHECK(comps.point == Point(0, 0, -1));
+    CHECK(comps.eyeV == Vector(0, 0, -1));
+    CHECK(comps.normalV == Vector(0, 0, -1));
+}
+

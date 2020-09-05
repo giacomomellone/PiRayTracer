@@ -10,6 +10,7 @@
 #include "modules/shapes/shape.cpp"
 #include "modules/intersection.cpp"
 #include "modules/material.cpp"
+#include "modules/world.cpp"
 
 int main(int argc, char **argv) {
     return CommandLineTestRunner::RunAllTests(argc, argv);

@@ -69,6 +69,27 @@ vector<Intersection> Intersect(Sphere s, Ray r)
     return intV;
 }
 
+vector<Intersection> IntersectWorld(World w, Ray r)
+{
+    vector<Intersection> intS1(2);
+    vector<Intersection> intS2(2);
+
+    intS1 = Intersect(w.s1, r);
+    intS2 = Intersect(w.s2, r);
+
+    vector<Intersection> intAll(intS1.size() + intS2.size());
+
+    /* Append S2 intersections to S1 */
+    intS1.insert(intS1.end(), intS2.begin(), intS2.end());
+    intAll = intS1;
+
+    /* Sort the intersections */
+    sort(intAll.begin(), intAll.end(),
+            [](Intersection & i1, Intersection & i2){return i1.t < i2.t;});
+
+    return intAll;
+}
+
 Intersection* Hit(vector<Intersection> *xs)
 {
     for(size_t i = 0; i < xs->size(); i++)
@@ -81,6 +102,20 @@ Intersection* Hit(vector<Intersection> *xs)
 
     return NULL;
 }
+
+comps_s prepareComputation(Intersection i, Ray r)
+{
+    comps_s comps;
+
+    comps.t = i.t;
+    comps.object = &i.s;
+    comps.point = r.Position(comps.t);
+    comps.eyeV = -r.directionV;
+    comps.normalV = comps.object->Normal(comps.point);
+
+    return comps;
+}
+
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS
  ******************************************************************************/

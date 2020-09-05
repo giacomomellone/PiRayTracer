@@ -64,7 +64,11 @@ void Canvas::SavePPM(string filename)
     Color c_temp = Color();
     ofstream f_ppm;
 
+#if 1
     f_ppm.open("../../ppm_outputs/" + filename);
+#else
+    f_ppm.open(filename);
+#endif
 
     f_ppm << "P3\n";
     f_ppm << this->x << " " << this->y << endl;

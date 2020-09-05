@@ -11,6 +11,7 @@
 #include <vector>
 #include "tuple.h"
 #include "ray.h"
+#include "world.h"
 #include "shapes/sphere.h"
 #include "support/utils.h"
 
@@ -39,7 +40,18 @@ class Intersection
         /********** PUBLIC METHOD PROTOTYPES ***********/
 };
 
+typedef struct computation
+{
+    float t;
+    Shape *object;
+    Tuple point;
+    Tuple eyeV;
+    Tuple normalV;
+} comps_s;
+
 vector<Intersection> Intersect(Sphere s, Ray r);
+
+vector<Intersection> IntersectWorld(World w, Ray r);
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
@@ -56,5 +68,7 @@ vector<Intersection> Intersections(Args const&... args)
 }
 
 Intersection* Hit(vector<Intersection> *xs);
+
+comps_s prepareComputation(Intersection i, Ray r);
 
 #endif /* INCLUDE_INTERSECTION_H_ */
