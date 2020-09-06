@@ -31,7 +31,7 @@ class Sphere: public Shape
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
         Tuple Normal(Tuple worldPoint);
-        vector<Intersection> Intersect(Ray &r);
+        vector<Intersection> Intersect(Ray const &r);
 };
 
 /*******************************************************************************

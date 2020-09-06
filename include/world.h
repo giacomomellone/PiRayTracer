@@ -37,17 +37,17 @@ class World
         Sphere s1, s2;
 
         /********** CTOR / DTOR ***********/
-        World();
+        World(){};
 
         /********** PUBLIC METHOD PROTOTYPES ***********/
-        Color ShadeHit(struct computation *comps);
-        vector<Intersection> Intersect(Ray &r);
-        Color ColorAt(Ray r);
+        Color ShadeHit(struct computation const comps);
+        vector<Intersection> Intersect(Ray const &r);
+        Color ColorAt(Ray const &r);
 };
 
 /*******************************************************************************
  *    CLASS SUPPORT FUNCTIONS PROTOTYPES
  ******************************************************************************/
-
+World DefaultWorld(void);
 
 #endif /* INCLUDE_WORLD_H_ */

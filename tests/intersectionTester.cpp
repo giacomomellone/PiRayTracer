@@ -144,6 +144,11 @@ TEST(IntersectionTest, prepareComputations_outside)
 
     comps_s comps = prepareComputation(i, r);
 
+    CHECK(comps.t == i.t);
+    CHECK(comps.object == i.s);
+    CHECK(comps.point == Point(0, 0, -1));
+    CHECK(comps.eyeV == Vector(0, 0, -1));
+    CHECK(comps.normalV == Vector(0, 0, -1));
     CHECK(comps.inside == false);
 }
 

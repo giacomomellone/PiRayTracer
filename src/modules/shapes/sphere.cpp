@@ -39,21 +39,22 @@ Tuple Sphere::Normal(Tuple worldPoint)
     return worldNormal.Normalize();
 };
 
-vector<Intersection> Sphere::Intersect(Ray &r)
+vector<Intersection> Sphere::Intersect(Ray const &r)
 {
     vector<Intersection> intV(2);
 
     /* Apply the inverse of the sphere transformation
      * to the ray itself
      */
-    r = r.Transform(this->transfM.Inverse());
+    Ray rT = r;
+    rT = rT.Transform(this->transfM.Inverse());
 
     /* Calculate the discriminant to know whether the ray
      * intersect the sphere */
-    Tuple sphereToRay = r.originP - this->originP;
+    Tuple sphereToRay = rT.originP - this->originP;
 
-    float a = r.directionV.Dot(r.directionV);
-    float b = 2 * r.directionV.Dot(sphereToRay);
+    float a = rT.directionV.Dot(rT.directionV);
+    float b = 2 * rT.directionV.Dot(sphereToRay);
     float c = sphereToRay.Dot(sphereToRay) - 1;
 
     float discriminant = powf(b, 2) - 4 * a * c;

@@ -8,30 +8,33 @@
  *    CONSTRUCTOR, DESTRUCTOR
  ******************************************************************************/
 
-World::World()
+World DefaultWorld(void)
 {
+    World w;
     /* Define the deafult world with the following features */
-    this->lightP = Light(Point(-10, 10, -10), Color(1, 1, 1));
+    w.lightP = Light(Point(-10, 10, -10), Color(1, 1, 1));
 
-    this->s1 = Sphere();
-    this->s1.material.color = Color(0.8, 1.0, 0.6);
-    this->s1.material.diffuse = 0.7;
-    this->s1.material.specular = 0.2;
+    w.s1 = Sphere();
+    w.s1.material.color = Color(0.8, 1.0, 0.6);
+    w.s1.material.diffuse = 0.7;
+    w.s1.material.specular = 0.2;
 
-    this->s2 = Sphere();
-    this->s2.SetTranformation(Scaling(0.5, 0.5, 0.5));
+    w.s2 = Sphere();
+    w.s2.SetTranformation(Scaling(0.5, 0.5, 0.5));
+
+    return w;
 }
 
 /*******************************************************************************
  *    PUBLIC METHODS
  ******************************************************************************/
-Color World::ShadeHit(struct computation *comps)
+Color World::ShadeHit(struct computation const comps)
 {
-    return(Lighting(comps->object->material, this->lightP,
-            comps->point, comps->eyeV, comps->normalV));
+    return(Lighting(comps.object->material, this->lightP,
+            comps.point, comps.eyeV, comps.normalV));
 }
 
-vector<Intersection> World::Intersect(Ray &r)
+vector<Intersection> World::Intersect(Ray const &r)
 {
     vector<Intersection> intS1 = this->s1.Intersect(r);
     vector<Intersection> intS2 = this->s2.Intersect(r);
@@ -49,7 +52,7 @@ vector<Intersection> World::Intersect(Ray &r)
     return intAll;
 }
 
-Color World::ColorAt(Ray r)
+Color World::ColorAt(Ray const &r)
 {
     Color colorAt(0, 0, 0);
 
@@ -61,16 +64,16 @@ Color World::ColorAt(Ray r)
     Intersection hit = Hit(xs);
 
     /* 3) Return the color black if there is no such intersection. */
-    if (hit.s != nullptr)
+    if (hit.s == nullptr)
     {
-        /* 4) Precompute the necessary values with prepareComputation. */
-        comps_s comps = prepareComputation(hit, r);
-
-        /* 5) Call shadeHit to find the color at the hit. */
-        colorAt = this->ShadeHit(&comps);
+        return Color(0, 0, 0);
     }
 
-    return colorAt;
+    /* 4) Precompute the necessary values with prepareComputation. */
+    comps_s comps = prepareComputation(hit, r);
+
+    /* 5) Call shadeHit to find the color at the hit. */
+    return this->ShadeHit(comps);
 }
 
 /*******************************************************************************

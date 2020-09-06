@@ -36,7 +36,7 @@ TEST_GROUP(WorldTest) {};
 
 TEST(WorldTest, constructWorld)
 {
-    World w;
+    World w = DefaultWorld();
 
     DOUBLES_EQUAL(-10, w.lightP.position.x, EPSILON);
     DOUBLES_EQUAL(10, w.lightP.position.y, EPSILON);
@@ -57,12 +57,17 @@ TEST(WorldTest, constructWorld)
 
 TEST(WorldTest, intersectWorld)
 {
-    World w;
+    World w = DefaultWorld();
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
 
     vector<Intersection> xs = w.Intersect(r);
 
     UNSIGNED_LONGS_EQUAL(4, xs.size());
+
+    CHECK((xs[0].s->shapeID == w.s1.shapeID) || (xs[0].s->shapeID == w.s2.shapeID));
+    CHECK((xs[1].s->shapeID == w.s1.shapeID) || (xs[1].s->shapeID == w.s2.shapeID));
+    CHECK((xs[2].s->shapeID == w.s1.shapeID) || (xs[2].s->shapeID == w.s2.shapeID));
+    CHECK((xs[3].s->shapeID == w.s1.shapeID) || (xs[3].s->shapeID == w.s2.shapeID));
 
     DOUBLES_EQUAL(4, xs[0].t, EPSILON);
     DOUBLES_EQUAL(4.5, xs[1].t, EPSILON);
@@ -70,34 +75,22 @@ TEST(WorldTest, intersectWorld)
     DOUBLES_EQUAL(6, xs[3].t, EPSILON);
 }
 
-TEST(WorldTest, shadeHit_oustide)
-{
-    World w;
-    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
-    Intersection i(4, &w.s1);
-
-    comps_s comps = prepareComputation(i, r);
-    Color c = w.ShadeHit(&comps);
-
-    CHECK(c == Color(0.38066, 0.47583, 0.2855));
-}
-
 TEST(WorldTest, shadeHit_inside)
 {
-    World w;
+    World w = DefaultWorld();
     w.lightP = Light(Point(0, 0.25, 0), Color(1, 1, 1));
     Ray r(Point(0, 0, 0), Vector(0, 0, 1));
     Intersection i(0.5, &w.s2);
 
     comps_s comps = prepareComputation(i, r);
-    Color c = w.ShadeHit(&comps);
+    Color c = w.ShadeHit(comps);
 
     CHECK(c == Color(0.90498, 0.90498, 0.90498));
 }
 
 TEST(WorldTest, colorAt_rayMiss)
 {
-    World w;
+    World w = DefaultWorld();
     Ray r(Point(0, 0, -5), Vector(0, 1, 0));
 
     Color c = w.ColorAt(r);
@@ -105,9 +98,22 @@ TEST(WorldTest, colorAt_rayMiss)
     CHECK(c == Color(0, 0, 0));
 }
 
+TEST(WorldTest, shadeHit_oustide)
+{
+    World w = DefaultWorld();
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Intersection i(4, &w.s1);
+
+    comps_s comps = prepareComputation(i, r);
+
+    Color c = w.ShadeHit(comps);
+
+    CHECK(c == Color(0.38066, 0.47583, 0.2855));
+}
+
 TEST(WorldTest, colorAt_rayHit)
 {
-    World w;
+    World w = DefaultWorld();
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
 
     Color c = w.ColorAt(r);
@@ -118,18 +124,18 @@ TEST(WorldTest, colorAt_rayHit)
 }
 
 /*
- * We expect color_at to use the hit when computing the color.
+ * We expect ColorAt to use the hit when computing the color.
  * Here, we put the ray inside the outer sphere, but outside the
  * inner sphere, and pointing at the inner sphere. We expect the
  * hit to be on the inner sphere, and thus return its color.
  */
 TEST(WorldTest, colorAt_intersectionBehindRay)
 {
-    World w;
+    World w = DefaultWorld();
+    w.s1.material.ambient = 1;
+    w.s2.material.ambient = 1;
     Sphere outer = w.s1;
-    outer.material.ambient = 1;
     Sphere inner = w.s2;
-    inner.material.ambient = 1;
     Ray r(Point(0, 0, 0.75), Vector(0, 0, -1));
 
     Color c = w.ColorAt(r);
